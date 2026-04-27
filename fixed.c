@@ -38,7 +38,8 @@ int main(void) {
      * If newline was not read and buffer is full, input was too long.
      * Flush remaining characters and handle as denied access.
      */
-    if (newline == NULL && strlen(state.username) == sizeof(state.username) - 1) {
+    size_t name_len = strlen(state.username);
+    if (newline == NULL && name_len == sizeof(state.username) - 1) {
         int ch;
         while ((ch = getchar()) != '\n' && ch != EOF) {
             /* discard extra bytes */
@@ -51,7 +52,7 @@ int main(void) {
     }
 
     printf("Captured username: %s\n", state.username);
-    printf("Captured username length: %zu\n", strlen(state.username));
+    printf("Captured username length: %zu\n", name_len);
     printf("isAdmin before auth check: %d\n", state.isAdmin);
 
     for (int i = 0; i < adminCount; i++) {
